@@ -18,9 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.products.demo.controller.ProductController;
 import com.products.demo.model.ProductModel;
-import com.products.demo.service.ProductService;
 
 class ProductRepositoryTest {
 
@@ -41,8 +39,6 @@ class ProductRepositoryTest {
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		
-		//tSimilarProducts = new ArrayList<String>();
-		//tSimilarProducts.add("2");
 		tSimilarProducts = new String[]{"2"};
 		
 		tProducts = new ArrayList<ProductModel>();
@@ -54,23 +50,29 @@ class ProductRepositoryTest {
 
 	@Test
 	void getSimilarProductsTest() throws Exception  {
+		// prepare
 		when(restTemplate.getForEntity(url + tProductId + "/similarids", String[].class)).thenReturn(new ResponseEntity(tSimilarProducts, HttpStatus.OK));
+		
+		// execute
 		List<String> result = productRepository.getSimilarProducts(tProductId);
+		
+		// assert
 		assertNotNull(result);
-		verify(restTemplate).getForEntity(url + tProductId + "/similarids", String[].class);
-		System.out.print("The result is: " + result);
-		System.out.print("Array to list is: " + Arrays.asList(tSimilarProducts));
+		verify(restTemplate).getForEntity(url + tProductId + "/similarids", String[].class);		
 		assertThat(result).usingRecursiveComparison().isEqualTo(Arrays.asList(tSimilarProducts));
 	}
 	
 	@Test
 	void getProductDetails() throws Exception  {
+		// prepare
 		when(restTemplate.getForObject(url + tProductId, ProductModel.class)).thenReturn(tProduct1);
+		
+		// execute
 		ProductModel result = productRepository.GetProductDetails(tProductId);
+		
+		// assert
 		assertNotNull(result);
-		verify(restTemplate).getForObject(url + tProductId, ProductModel.class);
-		System.out.print("The result is: " + result);
-		System.out.print("Array to list is: " + Arrays.asList(tSimilarProducts));
+		verify(restTemplate).getForObject(url + tProductId, ProductModel.class);		
 		assertThat(result).usingRecursiveComparison().isEqualTo(tProduct1);
 	}
 }

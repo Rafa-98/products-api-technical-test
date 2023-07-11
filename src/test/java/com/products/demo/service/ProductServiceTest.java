@@ -56,8 +56,7 @@ class ProductServiceTest {
 		List<ProductModel> result = productService.getSimilarProducts(tProductId);
 		
 		// assert
-		assertNotNull(result);
-		System.out.print(result);
+		assertNotNull(result);		
 		verify(productRepository).getSimilarProducts(tProductId);
 		verify(productRepository).GetProductDetails(tProductId);
 		assertThat(result).usingRecursiveComparison().isEqualTo(tProducts);

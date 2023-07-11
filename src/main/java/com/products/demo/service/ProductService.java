@@ -13,13 +13,10 @@ public class ProductService {
 	
 	public List<ProductModel> getSimilarProducts(String productId) throws SimilarProductsNotFoundException {
 		List<ProductModel> products = new ArrayList<ProductModel>();
-		List<String> similarProducts = repository.getSimilarProducts(productId);
-		System.out.print("Body is: " + similarProducts + "\n");
+		List<String> similarProducts = repository.getSimilarProducts(productId);		
 		if(similarProducts != null) {
-			for(String id : similarProducts ) {
-				System.out.print("Id is: " + id + "\n");
-				ProductModel product = this.GetProductDetails(id);
-				System.out.print("Product is: " + product + "\n");
+			for(String id : similarProducts ) {				
+				ProductModel product = this.GetProductDetails(id);				
 				if(product != null) {
 					products.add(product);
 				}
@@ -30,12 +27,9 @@ public class ProductService {
 	}
 	
 	public ProductModel GetProductDetails(String productId) {
-		try {
-			System.out.print("Id inside function is: " + productId + "\n");
+		try {			
 			return repository.GetProductDetails(productId);
-		} catch (Exception e) {
-			System.out.print("Entered exception\n");
-			System.out.print(e.getMessage());
+		} catch (Exception e) {			
 			return null;
 		}		
 	}

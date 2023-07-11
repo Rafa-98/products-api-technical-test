@@ -44,10 +44,11 @@ class ProductControllerTest {
 	void getSimilarProductsTest() throws Exception  {
 		// prepare
 		when(productService.getSimilarProducts(tProductId)).thenReturn(tProducts);
+		
 		// execute
 		ResponseEntity<List<ProductModel>> result = productController.getSimilarProducts(tProductId);
-		// assert
-		System.out.print("Result is: " + result);
+		
+		// assert		
 		assertNotNull(result);
 		verify(productService).getSimilarProducts(tProductId);
 		assertThat(result.getBody()).usingRecursiveComparison().isEqualTo(tProducts);
