@@ -1,0 +1,7 @@
+{"properties": [  
+  {
+    "name": "mock.service.url",
+    "type": "java.lang.String",
+    "description": "Url for the external mock service"
+  }
+]}
