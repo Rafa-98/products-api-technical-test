@@ -16,6 +16,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.products.demo.exception.BadRequestException;
+import com.products.demo.exception.SimilarProductsNotFoundException;
 import com.products.demo.model.ProductModel;
 import com.products.demo.service.ProductService;
 
@@ -48,12 +50,25 @@ class ProductControllerTest {
 		when(productService.getSimilarProducts(tProductId)).thenReturn(tProducts);
 		
 		// execute
-		ResponseEntity<List<ProductModel>> result = productController.getSimilarProducts(tProductId);
+		ResponseEntity<List<ProductModel>> result = productController.getSimilarProducts(Integer.parseInt(tProductId));
 		
 		// assert		
 		assertNotNull(result);
 		verify(productService).getSimilarProducts(tProductId);
 		assertThat(result.getBody()).usingRecursiveComparison().isEqualTo(tProducts);
+	}
+	
+	@Test
+	@DisplayName("It should return a BadRequestException")
+	void badRequestTest() throws Exception  {		
+		
+		// execute
+		Exception exception = assertThrows(BadRequestException.class, () -> productController.getSimilarProducts(0));
+	    String expectedMessage = "Bad Request: uri param 0 is not valid.";
+	    String actualMessage = exception.getMessage();
+
+		// assert		
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 
 }

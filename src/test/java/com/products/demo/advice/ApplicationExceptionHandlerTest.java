@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 
+import com.products.demo.exception.BadRequestException;
 import com.products.demo.exception.SimilarProductsNotFoundException;
 
 class ApplicationExceptionHandlerTest {
@@ -87,6 +88,22 @@ class ApplicationExceptionHandlerTest {
 		
 		// execute
 		errorMapResult = applicationExceptionHandler.handleException(new Exception("Internal Server Error"));
+		
+		// assert
+		assertNotNull(errorMapResult);
+		assertThat(expectedResult).usingRecursiveComparison().isEqualTo(errorMapResult);
+		
+	}
+	
+	@Test
+	@DisplayName("It should return a mapped BadRequestException error response")
+	void HandleBadRequestExceptionErrorTest() throws BadRequestException {
+		// prepare
+		Map<String, String> expectedResult = new HashMap<String, String>();
+		expectedResult.put("errorMessage", "Bad Request: uri param 0 is not valid.");
+		
+		// execute
+		errorMapResult = applicationExceptionHandler.handleException(new BadRequestException("Bad Request: uri param 0 is not valid."));
 		
 		// assert
 		assertNotNull(errorMapResult);

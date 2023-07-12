@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.products.demo.exception.BadRequestException;
 import com.products.demo.exception.SimilarProductsNotFoundException;
 
 @RestControllerAdvice
@@ -29,6 +30,12 @@ public class ApplicationExceptionHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public Map<String, String> handleException(Exception ex) {
+        return this.mapResponse(ex);
+    }
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BadRequestException.class)
+    public Map<String, String> handleException(BadRequestException ex) {
         return this.mapResponse(ex);
     }
 	
