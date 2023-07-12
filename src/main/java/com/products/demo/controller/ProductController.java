@@ -13,18 +13,22 @@ import com.products.demo.exception.SimilarProductsNotFoundException;
 import com.products.demo.model.ProductModel;
 import com.products.demo.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @RestController
 @RequestMapping("/product")
 @Validated
+@Slf4j
 public class ProductController {
 	
 	private ProductService service = new ProductService();
 	
 	@GetMapping("/{productId}/similar")
 	public ResponseEntity<List<ProductModel>> getSimilarProducts(@PathVariable @NotBlank @Pattern(regexp = "/^[0-9]+$/") String productId) throws SimilarProductsNotFoundException {
+		log.info("Request Received - GET:/product/" + productId + "/similar");
 		return ResponseEntity.ok(service.getSimilarProducts(productId));
 	}
 
