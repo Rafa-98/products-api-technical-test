@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ class ApplicationExceptionHandlerTest {
 	}
 
 	@Test
+	@DisplayName("It should return a mapped error response")
 	void mapResponseTest() throws Exception {
 		// prepare
 		Map<String, String> expectedResult = new HashMap<String, String>();
@@ -43,6 +45,7 @@ class ApplicationExceptionHandlerTest {
 	}
 	
 	@Test
+	@DisplayName("It should return a mapped HttpClientErrorException error response")
 	void NotFoundErrorTest() throws HttpClientErrorException {
 		// prepare
 		Map<String, String> expectedResult = new HashMap<String, String>();
@@ -60,6 +63,7 @@ class ApplicationExceptionHandlerTest {
 	}
 	
 	@Test
+	@DisplayName("It should return a mapped SimilarProductsNotFoundException error response")
 	void SimilarProductsNotFoundErrorTest() throws SimilarProductsNotFoundException {
 		// prepare
 		Map<String, String> expectedResult = new HashMap<String, String>();
@@ -75,6 +79,7 @@ class ApplicationExceptionHandlerTest {
 	}
 	
 	@Test
+	@DisplayName("It should return a mapped Exception error response")
 	void HandleExpectionErrorTest() throws Exception {
 		// prepare
 		Map<String, String> expectedResult = new HashMap<String, String>();

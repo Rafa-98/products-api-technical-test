@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -49,6 +50,7 @@ class ProductRepositoryTest {
 	}
 
 	@Test
+	@DisplayName("It should return an array of strings representing the list of similar products")
 	void getSimilarProductsTest() throws Exception  {
 		// prepare
 		when(restTemplate.getForEntity(url + tProductId + "/similarids", String[].class)).thenReturn(new ResponseEntity(tSimilarProducts, HttpStatus.OK));
@@ -63,6 +65,7 @@ class ProductRepositoryTest {
 	}
 	
 	@Test
+	@DisplayName("It should return all properties for a specific product")
 	void getProductDetails() throws Exception  {
 		// prepare
 		when(restTemplate.getForObject(url + tProductId, ProductModel.class)).thenReturn(tProduct1);

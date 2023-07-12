@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -47,6 +48,7 @@ class ProductServiceTest {
 	}
 
 	@Test
+	@DisplayName("It should return a list of similar products")
 	void getSimilarProductsTest() throws Exception  {
 		// prepare
 		when(productRepository.getSimilarProducts(tProductId)).thenReturn(tSimilarProducts);
@@ -63,6 +65,7 @@ class ProductServiceTest {
 	}
 	
 	@Test
+	@DisplayName("It should return all properties for a specific product")
 	void getProductDetails() throws Exception {
 		// prepare
 		when(productRepository.GetProductDetails(tProductId)).thenReturn(tProduct1);
@@ -77,6 +80,7 @@ class ProductServiceTest {
 	}
 	
 	@Test
+	@DisplayName("It should throw a SimilarProductsNotFoundException")
 	void getSimilarProductsThrowsNotFoundException() throws Exception {
 		// prepare
 		when(productRepository.getSimilarProducts(tProductId)).thenReturn(null);
@@ -92,6 +96,7 @@ class ProductServiceTest {
 	}
 	
 	@Test
+	@DisplayName("It should throw a RuntimeException")
 	void getProductDetailsFailure() throws RuntimeException {
 		// prepare
 		when(productRepository.GetProductDetails(tProductId)).thenThrow(new RuntimeException("Error Ocurred"));
